@@ -9,12 +9,15 @@
 
 struct Pixel
 {
-    Pixel(float gray) : r(gray), g(gray), b(gray) {}
-    Pixel(float red, float gre, float blu) : r(red), g(gre), b(blu) {}
+    Pixel(float gray) : l(gray) {}
+    Pixel(float red, float gre, float blu) :
+        l(0.2126f * pow(red, 2.2) +
+          0.7152f * pow(gre, 2.2) +
+          0.0722f * pow(blu, 2.2))
+    {}
 
-    float r;
-    float g;
-    float b;
+    // grayscale value / luminance
+    float l;
 };
 
 class Image

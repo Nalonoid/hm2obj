@@ -4,16 +4,11 @@
 #include <fstream>
 #include <string>
 
-PPM::PPM(const std::string &path)
-{
-    load(path);
-}
-
 PPM::PPM(const std::string &path, bool rgb)
 {
-    load(path);
     _img_data.is_rgb() = rgb;
     _img_data.is_grayscale() = !rgb;
+    load(path);
 }
 
 PPM::PPM(const Image& img) :
@@ -88,7 +83,6 @@ Image& PPM::image_data()
 OBJ::OBJ(PPM hm)
 {
     Image &img = hm.image_data();
-    assert(img.is_grayscale());
     img.normalize();
 
     int w = img.width();
@@ -104,7 +98,7 @@ OBJ::OBJ(PPM hm)
     {
         // normalized x, y and z
         float x = ((float) (i % w));
-        float y = img.pixels()[i].r;
+        float y = img.pixels()[i].l;
         float z = ((float) ((int) (i / w)));
 
         _mesh_points.emplace_back(x, y, z);

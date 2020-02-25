@@ -10,7 +10,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    bool is_rgb = argc == 4 ? static_cast<bool>(std::stoi(argv[3])) : true;
+    bool is_rgb = argc == 4 ? static_cast<bool>(std::stoi(argv[3])) : false;
 
     std::cout << "Hello hm2obj! :-)\n" << std::endl;
 

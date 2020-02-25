@@ -7,3 +7,8 @@ cmake ..
 make
 
 The binary will be located in hm2obj/bin
+
+* Usage *
+
+./bin/hm2obj in.ppm out.obj [is_rgb={0,1}]
+By default, the images are considered as grayscale.

@@ -6,7 +6,6 @@
 class PPM
 {
 public:
-    explicit PPM(const std::string &path);
     explicit PPM(const std::string &path, bool rgb);
     explicit PPM(const Image &img);
 

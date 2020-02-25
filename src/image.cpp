@@ -94,13 +94,13 @@ void Image::normalize()
     const auto minmax = std::minmax_element(std::begin(_pixels),
             std::end(_pixels), [](const Pixel &p1, const Pixel &p2)
     {
-        return p1.r > p2.r;
+        return p1.l > p2.l;
     });
 
     std::vector<Pixel> pixels;
     for (Pixel p : _pixels)
         pixels.emplace_back(
-                    (p.r-minmax.second->r)/(minmax.first->r-minmax.second->r));
+                    (p.l-minmax.second->l)/(minmax.first->l-minmax.second->l));
 
     _pixels = pixels;
 }
@@ -109,9 +109,9 @@ std::ostream& operator<<(std::ostream &os, const Image &img)
 {
     for (size_t i = 0; i < img._pixels.size(); ++i)
     {
-        os  << static_cast<int>(img._pixels[i].r*img._max_pixl_val) << " "
-            << static_cast<int>(img._pixels[i].g*img._max_pixl_val) << " "
-            << static_cast<int>(img._pixels[i].b*img._max_pixl_val) << "\n";
+        os  << static_cast<int>(img._pixels[i].l*img._max_pixl_val) << " "
+            << static_cast<int>(img._pixels[i].l*img._max_pixl_val) << " "
+            << static_cast<int>(img._pixels[i].l*img._max_pixl_val) << "\n";
     }
 
     return os;
@@ -124,9 +124,12 @@ std::istream& operator>>(std::istream &is, Image &img)
     float r, g, b;
     while (is >> r >> g >> b)
     {
-        img._pixels.emplace_back(r/img._max_pixl_val,
-                                 g/img._max_pixl_val,
-                                 b/img._max_pixl_val);
+        if (img.is_rgb())
+            img._pixels.emplace_back(r/img._max_pixl_val,
+                                    g/img._max_pixl_val,
+                                    b/img._max_pixl_val);
+        else
+            img._pixels.emplace_back(r/img._max_pixl_val);
     }
 
     return is;
