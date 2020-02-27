@@ -7,9 +7,7 @@ class PPM
 {
 public:
     explicit PPM(const std::string &path, bool rgb);
-    explicit PPM(const Image &img);
 
-    void save(const std::string &path = "./out.ppm");
     void load(const std::string &path = "./in.ppm");
 
     const Image& image_data() const;
@@ -22,6 +20,7 @@ private:
 
 struct vec3f
 {
+    vec3f() : x(0.f), y(0.f), z(0.f) {}
     vec3f(float vx, float vy, float vz) : x(vx), y(vy), z(vz) {}
     float x, y, z;
 };
@@ -29,7 +28,7 @@ struct vec3f
 class OBJ
 {
 public:
-    OBJ(PPM heightmap);
+    OBJ(PPM &heightmap);
 
     void save(const std::string &path = "./out.obj");
     void load(const std::string &path = "./in.obj");

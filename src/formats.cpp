@@ -11,36 +11,6 @@ PPM::PPM(const std::string &path, bool rgb)
     load(path);
 }
 
-PPM::PPM(const Image& img) :
-    _header("P3 "   + std::to_string(img.width()) + " "
-                    + std::to_string(img.height()) + " "
-                    + std::to_string(img.max_pixel_value()) + "\n"),
-    _img_data(img)
-{}
-
-void PPM::save(const std::string &path)
-{
-    std::ifstream file_exists(path);
-
-    if (file_exists)
-    {
-        std::cout << "The file " << path << " already exists!\n";
-        std::string ans;
-
-        do
-            std::cout << "Would you like to erase it? (y/N) " << std::flush;
-        while (getline(std::cin, ans) &&
-               !ans.empty() && ans != "y" && ans != "N");
-
-        if (ans != "y")
-            return;
-    }
-
-    std::ofstream output(path);
-    output << _header << "\n" << _img_data;
-    std::cout << "Image " << "saved to " << path << "." << std::endl;
-}
-
 void PPM::load(const std::string &path)
 {
     std::ifstream input(path);
@@ -80,7 +50,7 @@ Image& PPM::image_data()
 
 /* OBJ class definitions */
 
-OBJ::OBJ(PPM hm)
+OBJ::OBJ(PPM &hm)
 {
     Image &img = hm.image_data();
     img.normalize();
@@ -90,10 +60,10 @@ OBJ::OBJ(PPM hm)
 
     _width = w;
     _height = h;
-    _depth = 100.f;
+    _depth = 0.2f * w;
 
-    _mesh_points.clear();
-    _faces_indices.clear();
+    _mesh_points.reserve(w*h);
+    _mesh_points.reserve(6*(w-1)*(h-1));
     for (int i = 0; i < (int)img.pixels().size(); ++i)
     {
         // normalized x, y and z
