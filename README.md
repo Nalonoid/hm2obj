@@ -14,6 +14,24 @@ The binary will be located in hm2obj/bin
 
 __Usage__
 
+In order to have proper P3 PPM image files:
+
+convert -compress none in.{jpg, png,...} out.ppm
+
 ./bin/hm2obj in.ppm out.obj [is_rgb={0,1}]
 
 By default, the images are considered as grayscale.
+
+__Example__
+
+Input image:
+
+![in.ppm](./img/small_alaska.ppm "Small Alaska")
+
+Output OBJ in Meshlab:
+
+![small_alaska_coarse.obj](./img/small_alaska_coarse.png "Small Alaska OBJ in Meshlab")
+
+After a few smoothing steps:
+
+![small_alaska_smooth.obj](./img/small_alaska_smooth.png "Small Alaska after smoothing")
