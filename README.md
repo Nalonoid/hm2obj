@@ -26,7 +26,7 @@ __Example__
 
 Input image:
 
-![in.ppm](./img/small_alaska.ppm "Small Alaska")
+![small_alaska_heightmap.png](./img/small_alaska_heightmap.png "Small Alaska heightmap")
 
 Output OBJ in Meshlab:
 
